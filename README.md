@@ -2,7 +2,8 @@
 
 ## Overview
 
-The File Sorter Script is a Python utility designed to organize files in a specified directory by moving them into categorized subdirectories based on their file extensions. The script supports several predefined categories such as "Audio," "Videos," "Program Files," "Images," "Documents," "Compressed," "Webpage," and "Others." 
+The File Sorter Script is a Python utility designed to organize files in a specified directory by moving them into categorized subdirectories based on their file extensions. The script supports several predefined categories such as "Audio," "Videos," "Program Files," "Images," "Documents," "Compressed," "Webpage," and "Others." It is further customizable with basic knowledge of python to add extensions for filter or further filters to sort.
+
 
 ## Requirements
 
