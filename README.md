@@ -30,7 +30,7 @@ The script sorts files into the following categories based on their extensions:
 To run the script, use the following command:
 
 ```bash
-python file_sorter.py -p <path> or python sorter.py --path <path>
+python sorter.py -p <path> or python sorter.py --path <path>
 ```
 `<path>`: The directory path where the files need to be sorted. If not provided, the script will default to the current working directory.
 ## Arguments
@@ -40,19 +40,19 @@ python file_sorter.py -p <path> or python sorter.py --path <path>
 ## Sorting files in a directory
 To sort files located in `C:\Downloads`, run:
 ```bash
-python file_sorter.py "C:\Downloads"
+python sorter.py "C:\Downloads"
 ```
 The script will move files into appropriate subdirectories such as "Audio," "Videos," etc., based on their extensions.
 
 ### Batch File Integration
-You can automate the script execution using a batch file. Create a file named `run_file_sorter.bat` with the following content:
+You can automate the script execution using a batch file. Create a file named `sorter.bat` with the following content:
 ```batch
 @echo off
 REM SET PATH TO PYTHON
 REM (THIS IS USUALLY DONE DURING PYTHON INSTALLATION)
 
 REM Set the path to your Python script (THIS IS USUALLY DONE DURING PYTHON INSTALLATION)
-SET SCRIPT_PATH=C:\SP\Python\Script\sorter.py
+SET SCRIPT_PATH=<placeholder path here>
 
 SET CURRENT_PATH=%CD%
 
@@ -69,7 +69,7 @@ pause
 
 ```
 
-Replace `C:\Path\To\Your\Script\file_sorter.py` with the actual path.
+Replace `<placeholder path here>` with the actual path.
 
 ## Error Handling
 - **PermissionError**: If you encounter a PermissionError, ensure that you have the necessary read/write permissions for the directories and files.
