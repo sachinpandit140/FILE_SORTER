@@ -8,8 +8,6 @@ The File Sorter Script is a Python utility designed to organize files in a speci
 ## Requirements
 
 - Python 3.x installed on your system.
-- Basic knowledge of running Python scripts from the command line.
-- Appropriate permissions to read, write, and create directories in the target folder.
 
 ## File Categories and Extensions
 
