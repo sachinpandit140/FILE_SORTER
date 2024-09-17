@@ -72,6 +72,34 @@ pause
 
 Replace `<placeholder path here>` with the actual path.
 
+## Running the Script in Bash
+
+To run the script using Bash, follow these steps:
+
+1. **Open a Terminal**: Access your terminal or command line interface.
+
+2. **Navigate to the Script Directory**: Use the `cd` command to change to the directory where your `sorter.py` script is located. For example:
+
+    ```bash
+    cd /path/to/your/script
+    ```
+
+3. **Run the Script**: Use the following command to execute the script:
+
+    ```bash
+    python3 file_sorter.py -p /path/to/your/directory
+    ```
+
+    - `/path/to/your/directory`: Replace this with the path to the directory you want to sort. If the path contains spaces, enclose it in quotes.
+
+### Example
+
+To sort files located in `/home/user/Downloads`, run:
+
+```bash
+python3 file_sorter.py -p "/home/user/Downloads"
+```
+
 ## Error Handling
 - **PermissionError**: If you encounter a PermissionError, ensure that you have the necessary read/write permissions for the directories and files.
 - **OSError**: Ensure that the target directories do not contain files with the same names or paths that might conflict.
