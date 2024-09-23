@@ -6,7 +6,7 @@ import sys
 sort_folders=["Audio", "Videos", "Program Files", "Images", "Documents","Compressed", "Webpage","Others"]
 extensions={"Audio":['.wav','.pcm','.aiff','mp3','.aac','.flac','.alac'],
             "Videos":['.amv','.mp4','.mkv','avi','.mov','.webm','.m4v'],
-            "Program Files":['.c','.java','.cpp','.py','.js','.ts','.cs','.swift','.pl','.bat','.com','.exe','.go','.msi','.sh'
+            "Program Files":['.c','.java','.cpp','.py','.js','.ts','.cs','.swift','.pl','.bat','.com','.exe','.go','.msi','.sh',
             '.class','.r'],
             "Images":['.gif','.png','.jpg','.jpeg','.webp','.heif','.bmp','.raw','.tiff'],
             "Documents":[".doc", ".docx", ".odt", ".pdf", ".rtf", ".txt", 
@@ -28,7 +28,7 @@ def main():
 
 
 def check_path(path: str):
-    if re.match(r"([A-Z]:/){1}([a-zA-Z0-9!@#$%*^&:\"]+/)*"):
+    if re.match(r"([A-Z]:/){1}([a-zA-Z0-9!@#$%*^&:\"]+/)*",path):
         return True
     return False
 
