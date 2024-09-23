@@ -48,22 +48,25 @@ You can automate the script execution using a batch file. Create a file named `s
 ```batch
 @echo off
 REM SET PATH TO PYTHON
+SET PYTHON_PATH=<YOUR PYTHON PATH HERE>
 REM (THIS IS USUALLY DONE DURING PYTHON INSTALLATION)
 
-REM Set the path to your Python script (THIS IS USUALLY DONE DURING PYTHON INSTALLATION)
-SET SCRIPT_PATH=<placeholder path here>
+REM Set the path to your Python script
+SET SCRIPT_PATH= <placeholder path here>
 
 SET CURRENT_PATH=%CD%
+
+SET DEST_PATH=%CD%
 
 REM CHANGE "%cd" to your path for desired path
 
 
-python "%SCRIPT_PATH%" -p "%CURRENT_PATH%"
+"%PYTHON_PATH% "%SCRIPT_PATH%" -p "%CURRENT_PATH%" -d "%DEST_PATH%"
 
-REM example "python "%SCRIPT_PATH" -p "%CURRENT_PATH"" which is the default value
 REM example "%PYTHON_PATH%" "%SCRIPT_PATH%" -p "%CURRENT_PATH%" can also be done
 echo DONE!
 pause
+
 
 
 ```
@@ -85,7 +88,7 @@ To run the script using Bash, follow these steps:
 3. **Run the Script**: Use the following command to execute the script:
 
     ```bash
-    python3 file_sorter.py -p /path/to/your/directory
+    python3 file_sorter.py -p /path/to/your/directory -d /path/to/your/directory
     ```
 
     - `/path/to/your/directory`: Replace this with the path to the directory you want to sort. If the path contains spaces, enclose it in quotes.
