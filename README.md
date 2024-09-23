@@ -2,13 +2,12 @@
 
 ## Overview
 
-The File Sorter Script is a Python utility designed to organize files in a specified directory by moving them into categorized subdirectories based on their file extensions. The script supports several predefined categories such as "Audio," "Videos," "Program Files," "Images," "Documents," "Compressed," "Webpage," and "Others." 
+The File Sorter Script is a Python utility designed to organize files in a specified directory by moving them into categorized subdirectories based on their file extensions. The script supports several predefined categories such as "Audio," "Videos," "Program Files," "Images," "Documents," "Compressed," "Webpage," and "Others." It is further customizable with basic knowledge of python to add extensions for filter or further filters to sort.
+
 
 ## Requirements
 
 - Python 3.x installed on your system.
-- Basic knowledge of running Python scripts from the command line.
-- Appropriate permissions to read, write, and create directories in the target folder.
 
 ## File Categories and Extensions
 
@@ -49,27 +48,58 @@ You can automate the script execution using a batch file. Create a file named `s
 ```batch
 @echo off
 REM SET PATH TO PYTHON
+SET PYTHON_PATH=<YOUR PYTHON PATH HERE>
 REM (THIS IS USUALLY DONE DURING PYTHON INSTALLATION)
 
-REM Set the path to your Python script (THIS IS USUALLY DONE DURING PYTHON INSTALLATION)
-SET SCRIPT_PATH=<placeholder path here>
+REM Set the path to your Python script
+SET SCRIPT_PATH= <placeholder path here>
 
 SET CURRENT_PATH=%CD%
+
+SET DEST_PATH=%CD%
 
 REM CHANGE "%cd" to your path for desired path
 
 
-python "%SCRIPT_PATH%" -p "%CURRENT_PATH%"
+"%PYTHON_PATH% "%SCRIPT_PATH%" -p "%CURRENT_PATH%" -d "%DEST_PATH%"
 
-REM example "python "%SCRIPT_PATH" -p "%CURRENT_PATH"" which is the default value
 REM example "%PYTHON_PATH%" "%SCRIPT_PATH%" -p "%CURRENT_PATH%" can also be done
 echo DONE!
 pause
 
 
+
 ```
 
 Replace `<placeholder path here>` with the actual path.
+
+## Running the Script in Bash
+
+To run the script using Bash, follow these steps:
+
+1. **Open a Terminal**: Access your terminal or command line interface.
+
+2. **Navigate to the Script Directory**: Use the `cd` command to change to the directory where your `sorter.py` script is located. For example:
+
+    ```bash
+    cd /path/to/your/script
+    ```
+
+3. **Run the Script**: Use the following command to execute the script:
+
+    ```bash
+    python3 file_sorter.py -p /path/to/your/directory -d /path/to/your/directory
+    ```
+
+    - `/path/to/your/directory`: Replace this with the path to the directory you want to sort. If the path contains spaces, enclose it in quotes.
+
+### Example
+
+To sort files located in `/home/user/Downloads`, run:
+
+```bash
+python3 file_sorter.py -p "/home/user/Downloads"
+```
 
 ## Error Handling
 - **PermissionError**: If you encounter a PermissionError, ensure that you have the necessary read/write permissions for the directories and files.
