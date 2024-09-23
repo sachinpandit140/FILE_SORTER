@@ -1,12 +1,11 @@
 import os
-import re
 import argparse
 import sys
 
 sort_folders=["Audio", "Videos", "Program Files", "Images", "Documents","Compressed", "Webpage","Others"]
 extensions={"Audio":['.wav','.pcm','.aiff','mp3','.aac','.flac','.alac'],
             "Videos":['.amv','.mp4','.mkv','avi','.mov','.webm','.m4v'],
-            "Program Files":['.c','.java','.cpp','.py','.js','.ts','.cs','.swift','.pl','.bat','.com','.exe','.go','.msi','.sh'
+            "Program Files":['.c','.java','.cpp','.py','.js','.ts','.cs','.swift','.pl','.bat','.com','.exe','.go','.msi','.sh',
             '.class','.r'],
             "Images":['.gif','.png','.jpg','.jpeg','.webp','.heif','.bmp','.raw','.tiff'],
             "Documents":[".doc", ".docx", ".odt", ".pdf", ".rtf", ".txt", 
@@ -20,73 +19,71 @@ extensions={"Audio":['.wav','.pcm','.aiff','mp3','.aac','.flac','.alac'],
             ".css", ".js", ".xml", ".xhtml"],"Others":[]}
 
 def main():
-    path=path_args()
-    folders=os.listdir(path)
-    folders=check_dir(folders, path)
-    sort(path, folders)
+    source, path =path_args()
+    is_valid_path(source, path)
+    folders=os.listdir(source)
+    check_dir(path)
+    sort_files(source, path, folders)
 
 
 
-def check_path(path: str):
-    if re.match(r"([A-Z]:/){1}([a-zA-Z0-9!@#$%*^&:\"]+/)*"):
-        return True
-    return False
+
+def is_valid_path(source,dest):
+    if not os.path.exists(source):
+        sys.exit(f"Error: The source path '{source}' does not exist.")
+    if not os.path.isdir(source):
+        sys.exit(f"Error: The source path '{source}' is not a directory.")
+    if not os.path.exists(dest):
+        sys.exit(f"Error: The destination path '{dest}' does not exist.")
+    if not os.path.isdir(dest):
+        sys.exit(f"Error: The destination path '{dest}' is not a directory.")
 
 def path_args():
     parser=argparse.ArgumentParser(description="Sort for the files")
     parser.add_argument("-p", "--path", help="path of the folder to be sorted", default=os.getcwd(), type=str)
+    parser.add_argument("-d", "--destination", help="destination folder", default=os.getcwd(), type=str)
     args=parser.parse_args()
-    return args.path
+    return args.path, args.destination
 
-def check_dir(l, p):
-    for char in sort_folders:
-        if char in l:
-            pass
-        else:
-            if char not in os.listdir(p):
-                    new_path=os.path.join(p, char )
-                    print(f"New Path: {new_path} made.")
-                    mode=0o666
-                    os.mkdir(new_path)
-                
-    return os.listdir(p)
+def check_dir(dest):
+    for folder in sort_folders:
+        folder_path = os.path.join(dest, folder)
+        if not os.path.exists(folder_path):
+            print(f"Creating folder: {folder_path}")
+            os.mkdir(folder_path)
 
-def sort(pat, fold):
+def move_file(src, dest_folder, file_name):
+    if not os.path.exists(dest_folder):
+        os.mkdir(dest_folder)
+
+    target_path = os.path.join(dest_folder, file_name)
+    print(f"Moving {src} to {dest_folder}")
+    os.rename(src, target_path)
+
+def sort_files(source, dest, files):
     try:
-        for char in fold:
-            current_path = os.path.join(pat, char)
-            
+        for file_name in files:
+            current_path = os.path.join(source, file_name)
+
             if os.path.isfile(current_path):
-                moved = False 
+                moved = False
+                file_name_lower = file_name.lower()
 
-                for obj in sort_folders:
-                    if len(extensions[obj]) != 0:
-                        for ext in extensions[obj]:
-                            char=char.lower()
-                            if char.endswith(ext):
-                                initial_path = current_path
-                                target_path = os.path.join(pat, obj)
-
-                                if not os.path.exists(target_path):
-                                    os.mkdir(target_path)
-
-                                target_file_path = os.path.join(target_path, char)
-                                os.rename(initial_path, target_file_path)
+                for folder in sort_folders:
+                    if len(extensions[folder]) > 0:
+                        for ext in extensions[folder]:
+                            if file_name_lower.endswith(ext):
+                                target_folder = os.path.join(dest, folder)
+                                move_file(current_path, target_folder, file_name)
                                 moved = True
                                 break
-
                     if moved:
-                        break 
-
+                        break
 
                 if not moved:
-                    target_path = os.path.join(pat, "Others")
+                    move_file(current_path, os.path.join(dest, "Others"), file_name)
+        print("TASK COMPLETED")            
 
-                    if not os.path.exists(target_path):
-                        os.mkdir(target_path)
-
-                    target_file_path = os.path.join(target_path, char)
-                    os.rename(current_path, target_file_path)
     except PermissionError:
         sys.exit("Permission Error! Please run the program as administrator!")
 
