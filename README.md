@@ -29,7 +29,12 @@ The script sorts files into the following categories based on their extensions:
 To run the script, use the following command:
 
 ```bash
-python sorter.py -p <path> -d <destination> or python sorter.py --path <path> --destination <destination>
+python sorter.py -p <path> -d <destination>
+```
+or
+
+```bash
+ python sorter.py --path <path> --destination <destination>
 ```
 `<path>`: The directory path where the files need to be sorted. If not provided, the script will default to the current working directory.
 
